@@ -38,7 +38,7 @@ btnRoll.addEventListener('click', function () {
     const dice = Math.trunc(Math.random() * 6) + 1;
     //   display dice
     diceEl.classList.remove('hidden');
-    diceEl.src = `dice-${dice}.png`;
+    diceEl.src = `img/dice-${dice}.png`;
 
     //   check for role 1
     if (dice !== 1) {
