@@ -1,11 +1,9 @@
 'use strict';
 // selecting elements
-const playerScore0 = document.querySelector('.score--0');
-const playerScore1 = document.querySelector('.score--1');
 const player0 = document.querySelector('.player--0');
 const player1 = document.querySelector('.player--1');
-const score0El = document.querySelector('#score--0');
-const score1El = document.getElementById('score--1');
+const score0El = document.getElementById('#score--0');
+const score1El = document.getElementById('#score--1');
 const current0El = document.getElementById('current--0');
 const current1El = document.getElementById('current--1');
 const diceEl = document.querySelector('.dice');
@@ -14,15 +12,25 @@ const btnRoll = document.querySelector('.btn--roll');
 const btnHold = document.querySelector('.btn--hold');
 
 // starting conditions
-score0El.textContext = 0;
-score1El.textContext = 0;
-diceEl.classList.add('hidden');
+let scores, currentScore, activePlayer, playing;
+const init = function () {
+  scores = [0, 0];
+  currentScore = 0;
+  activePlayer = 0;
+  playing = true;
 
-const scores = [0, 0];
-let currentScore = 0;
-let activePlayer = 0;
-let playing = true;
+  document.getElementById(`score--0`).textContent = 0;
+  document.getElementById(`score--1`).textContent = 0;
+  current0El.textContext = 0;
+  current1El.textContext = 0;
 
+  diceEl.classList.add('hidden');
+  player0.classList.remove('player--winner');
+  player1.classList.remove('player--winner');
+  player0.classList.add('player--active');
+  player1.classList.remove('player--active');
+};
+init();
 //
 const playerToggle = function () {
   document.getElementById(`current--${activePlayer}`).textContent = 0;
@@ -31,6 +39,8 @@ const playerToggle = function () {
   player0.classList.toggle('player--active');
   player1.classList.toggle('player--active');
 };
+
+
 // Rolling dice functionality
 btnRoll.addEventListener('click', function () {
   if (playing) {
@@ -43,8 +53,7 @@ btnRoll.addEventListener('click', function () {
     //   check for role 1
     if (dice !== 1) {
       currentScore += dice;
-      // playerScore0.textContent = currentScore;
-      // playerScore1.textContent = currentScore;
+
       document.getElementById(`current--${activePlayer}`).textContent =
         currentScore;
       console.log(currentScore);
@@ -78,3 +87,5 @@ btnHold.addEventListener('click', function () {
     playerToggle();
   }
 });
+// reset game
+btnNew.addEventListener('click', init);
